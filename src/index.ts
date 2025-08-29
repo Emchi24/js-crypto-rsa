@@ -23,7 +23,7 @@ export async function generateKeyPair(bitLength: number) : Promise<[ publicKey: 
     const n = p * q
 
     const privateKey = {
-        "privateKey": getPrivateKey(p, q),
+        "privateKey": getPrivateKey(p, q, bitLength),
         "n": n
     } 
 

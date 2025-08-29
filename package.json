@@ -1,12 +1,12 @@
 {
   "name": "@js-crypto/rsa",
-  "version": "1.0.1",
+  "version": "0.0.0-development",
   "description": "package for end-to-end encryption chat webapps with rsa",
   "keywords": [
     "crypto",
-    "javascrypt",
+    "javascript",
     "rsa",
-    "ent-to-end",
+    "end-to-end",
     "chat",
     "webapp"
   ],
@@ -20,11 +20,14 @@
   },
   "license": "MIT",
   "author": "Emchi24",
-  "type": "commonjs",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsc",
-    "symantic-release": "semantic-release",
+    "semantic-release": "semantic-release",
     "test": "jest"
   },
   "devDependencies": {
@@ -42,3 +45,4 @@
     "access": "public"
   }
 }
+
