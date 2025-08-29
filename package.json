@@ -1,0 +1,44 @@
+{
+  "name": "@js-crypto/rsa",
+  "version": "0.0.0-development",
+  "description": "package for end-to-end encryption chat webapps with rsa",
+  "keywords": [
+    "crypto",
+    "javascrypt",
+    "rsa",
+    "ent-to-end",
+    "chat",
+    "webapp"
+  ],
+  "homepage": "https://github.com/Emchi24/js-crypto-rsa#readme",
+  "bugs": {
+    "url": "https://github.com/Emchi24/js-crypto-rsa/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emchi24/js-crypto-rsa.git"
+  },
+  "license": "MIT",
+  "author": "Emchi24",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "symantic-release": "semantic-release",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.1.1",
+    "semantic-release": "^24.2.7",
+    "typescript": "^5.9.2"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "index.test.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
