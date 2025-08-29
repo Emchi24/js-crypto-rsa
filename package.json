@@ -21,7 +21,7 @@
   "license": "MIT",
   "author": "Emchi24",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "symantic-release": "semantic-release",
