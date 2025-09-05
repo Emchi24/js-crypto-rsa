@@ -48,11 +48,11 @@ export async function signMessage(message: string, privateKey: privateKey) {
     return signedMessage
 }
 
-export async function encryptMessage(message: string, publicKey: publicKey) {
+export async function encryptMessage(message: string, publicKey: publicKey): Promise<bigint[]> {
     return await encrypt(message, publicKey.publicKey, publicKey.n)
 }
 
-export async function verifyMessageSigniture(message: string, singedMessage: bigint, publicKey: publicKey): Promise<boolean> {
+export async function verifyMessageSigniture(message: string, singedMessage: bigint[], publicKey: publicKey): Promise<boolean> {
     const decryptMessageSignature = await decrypt(singedMessage, publicKey.publicKey, publicKey.n)
     const messageHash = await createSha256Hash(message)
     if (messageHash !== decryptMessageSignature) {
@@ -61,6 +61,6 @@ export async function verifyMessageSigniture(message: string, singedMessage: big
     return true 
 }
 
-export async function decryptMessage(encryptedMessage: bigint, privateKey: privateKey) {
+export async function decryptMessage(encryptedMessage: bigint[], privateKey: privateKey): Promise<string> {
     return await decrypt(encryptedMessage, privateKey.privateKey, privateKey.n)
 }
