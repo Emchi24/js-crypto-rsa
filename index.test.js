@@ -10,6 +10,6 @@ test('encrypt, sign, decrypt, and verify works correctly', async () => {
   const signedMessage = await index.signMessage(msg, privateKeyTransmitter)
   const decryptedMessage = await index.decryptMessage(encryptedMessage, privateKeyRecipient)
 
-  expect(await index.verifyMessageSigniture(msg, signedMessage, publicKeyTransmitter)).toBe(true)
+  expect(await index.verifyMessageSigniture(decryptedMessage, signedMessage, publicKeyTransmitter)).toBe(true)
   expect(decryptedMessage).toBe(msg)
-}, 15)
+}, 20000)
