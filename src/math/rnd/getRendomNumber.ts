@@ -1,8 +1,6 @@
-import { webcrypto } from 'crypto';
-
 export default function getRendomNumber(NumLenBits: number, oddNumber: boolean): bigint {
     const bytesArray: Uint8Array = new Uint8Array(NumLenBits)
-    const rNumbArray: Uint8Array = webcrypto.getRandomValues(bytesArray) 
+    const rNumbArray: Uint8Array = globalThis.crypto.getRandomValues(bytesArray) 
     
     let bitString: string = ""
     

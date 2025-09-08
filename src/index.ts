@@ -5,6 +5,7 @@ import encrypt from "./encrypt"
 import decrypt from "./decrypt"
 import createSha256Hash from "./hash"
 import { promises } from "dns"
+import { copyFileSync } from "fs"
 
 interface publicKey {
     "publicKey": bigint,
@@ -17,6 +18,14 @@ interface privateKey {
 }
 
 export async function generateKeyPair(bitLength: number) : Promise<[ publicKey: publicKey, privateKey: privateKey ]> {
+    if (bitLength < 1024) {
+        if (bitLength <= 32) {
+            throw new Error("bitLength must be at least 33 bits long. A length of 1024 bits is recommended.")
+        }
+        else {
+            console.warn("It’s recommended that bitLength is at least 1024 bits each.")
+        }
+    }
     const p = getRendomPrimeNumber(bitLength)
     const q = getRendomPrimeNumber(bitLength)
     
@@ -48,11 +57,11 @@ export async function signMessage(message: string, privateKey: privateKey) {
     return signedMessage
 }
 
-export async function encryptMessage(message: string, publicKey: publicKey): Promise<bigint[]> {
+export async function encryptMessage(message: string, publicKey: publicKey): Promise<bigint[][]> {
     return await encrypt(message, publicKey.publicKey, publicKey.n)
 }
 
-export async function verifyMessageSigniture(message: string, singedMessage: bigint[], publicKey: publicKey): Promise<boolean> {
+export async function verifyMessageSigniture(message: string, singedMessage: bigint[][], publicKey: publicKey): Promise<boolean> {
     const decryptMessageSignature = await decrypt(singedMessage, publicKey.publicKey, publicKey.n)
     const messageHash = await createSha256Hash(message)
     if (messageHash !== decryptMessageSignature) {
@@ -61,6 +70,6 @@ export async function verifyMessageSigniture(message: string, singedMessage: big
     return true 
 }
 
-export async function decryptMessage(encryptedMessage: bigint[], privateKey: privateKey): Promise<string> {
+export async function decryptMessage(encryptedMessage: bigint[][], privateKey: privateKey): Promise<string> {
     return await decrypt(encryptedMessage, privateKey.privateKey, privateKey.n)
 }

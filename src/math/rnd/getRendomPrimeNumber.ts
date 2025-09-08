@@ -13,7 +13,7 @@ export default function getRendomPrimeNumber(bitLength: number) {
         const x = (b-1n) / 2n
         for (let i = 1; i <= 100; i++) {
             const a = getRendomNumber(bitLength - 1, false)
-            let jacobi = jacobiSymbol(a, b);  
+            let jacobi = jacobiSymbol(a, b)  
             if (jacobi == -1n) {
                 jacobi = b - 1n // modular arithmetic way to def jacobiSybol = -1
             }
