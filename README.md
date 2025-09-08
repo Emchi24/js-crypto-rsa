@@ -12,11 +12,11 @@ npm i @js-crypto/rsa
 
 ```js
 import * as rsa from "@js-crypto/rsa"
-
 async function test() {
     const msg = "Hello World!"
-
-  const [publicKeyTransmitter, privateKeyTransmitter] = await rsa.generateKeyPair(1024) // 1024 is the size of p and q so n will be 1024*2 bits
+  
+  const [publicKeyTransmitter, privateKeyTransmitter] = await rsa.generateKeyPair(1024) // 1024 is the size of p and q so n will be 1024*2 bits.
+  // A bit length of at least 32 bits is required, but 1024 is recommended.
   const [publicKeyRecipient, privateKeyRecipient] = await rsa.generateKeyPair(1024)
 
   const encryptedMessage = await rsa.encryptMessage(msg, publicKeyRecipient)
