@@ -1,5 +1,5 @@
 ## What is js-crypto-rsa?
-js-crypto-rsa is an npm package for an end-to-end encryption messaging webapp like it is definined in the official RSA-paper. It provides
+js-crypto-rsa is a npm package where I implemented a RSA Cryptosystem completely from scratch like it is defined in the RSA paper. I built it for webapps to enable secure end-to-end encryption. It provides
 * a public/-private keypair generation function
 * encryption and singing functions 
 
