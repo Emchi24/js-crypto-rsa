@@ -5,21 +5,17 @@ export default function numberToBinary(number: bigint): string {
     }
 
     let x = number
-    let tempBinaryString = ""
+    let unpaddedBinaryString = ""
 
     while (x !== 0n) {
         if (x % 2n === 0n) {
-            tempBinaryString += "0"
+            unpaddedBinaryString += "0"
         } else {
-            tempBinaryString += "1"
+            unpaddedBinaryString += "1"
         }
         x /= 2n
     }
 
-    let unpaddedBinaryString = ""
-    for (let i = tempBinaryString.length - 1; i >= 0; i--) {
-        unpaddedBinaryString += tempBinaryString[i]
-    }
     
     const len = unpaddedBinaryString.length
     const remainder = len % 8

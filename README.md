@@ -22,7 +22,7 @@ async function test() {
   const encryptedMessage = await rsa.encryptMessage(msg, publicKeyRecipient)
   const signedMessage = await rsa.signMessage(msg, privateKeyTransmitter)
   const decryptedMessage = await rsa.decryptMessage(encryptedMessage, privateKeyRecipient)
-  const verifiedMessage = await rsa.verifyMessageSigniture(decryptedMessage, signedMessage, publicKeyTransmitter)
+  const verifiedMessage = await rsa.verifyMessageSignature(decryptedMessage, signedMessage, publicKeyTransmitter)
   if (verifiedMessage) {
     console.log("Success")
     return decryptedMessage

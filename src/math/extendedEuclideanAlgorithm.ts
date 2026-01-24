@@ -1,6 +1,6 @@
 
 
-export default function extendedEuclideanAlgorythm(a: bigint, b: bigint) {
+export default function extendedEuclideanAlgorithm(a: bigint, b: bigint) {
     let q: bigint[] = [],
         r: bigint[] = [],
         x:bigint[] = [], 

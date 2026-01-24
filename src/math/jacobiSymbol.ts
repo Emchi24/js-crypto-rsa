@@ -4,7 +4,7 @@ import isOdd from "./isOdd"
 export default function jacobiSymbol(a: bigint, n: bigint): bigint {
     // base checks
     if (isOdd(n) == false || n < 1n) {
-        throw new Error("n must be odd and positiv")
+        throw new Error("n must be odd and positive")
     }
 
     if (a == 0n) {

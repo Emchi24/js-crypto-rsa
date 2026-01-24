@@ -5,11 +5,11 @@ export default function getRendomNumber(NumLenBits: number, oddNumber: boolean):
     let bitString: string = ""
     
     if (oddNumber) {
-        rNumbArray[NumLenBits - 1] |= 0x01 // set LSB low for odd number
+        rNumbArray[NumLenBits - 1] |= 1 // set LSB low for odd number
     }
 
     rNumbArray.forEach((rendomNum: number) => {
-        const bit = rendomNum & 1 // get last bit 
+        const bit = rendomNum & 1 // get last bit  
         bitString += bit.toString()
     })
     const bigNum: bigint = BigInt("0b" + bitString)

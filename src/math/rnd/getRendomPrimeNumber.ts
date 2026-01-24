@@ -15,7 +15,7 @@ export default function getRendomPrimeNumber(bitLength: number) {
             const a = getRendomNumber(bitLength - 1, false)
             let jacobi = jacobiSymbol(a, b)  
             if (jacobi == -1n) {
-                jacobi = b - 1n // modular arithmetic way to def jacobiSybol = -1
+                jacobi = b - 1n // modular arithmetic way to def jacobiSymbol = -1
             }
             const modPowResult = largeNumberModPow(a, x, b)
 

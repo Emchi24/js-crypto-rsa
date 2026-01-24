@@ -1,8 +1,6 @@
-import getRendomPrimeNumber from "./math/rnd/getRendomPrimeNumber";
 import getRendomNumber from "./math/rnd/getRendomNumber";
 import gcd from "./math/gcd";
-import largeNumberModPow from "./math/largeNumberPow";
-import extendedEuclideanAlgorythm from "./math/extendedEuclideanAlgorythm";
+import extendedEuclideanAlgorithm from "./math/extendedEuclideanAlgorithm";
 
 
 export function getPrivateKey(p: bigint, q: bigint, bitLength: number) {
@@ -17,6 +15,6 @@ export function getPrivateKey(p: bigint, q: bigint, bitLength: number) {
 }
 export function getPublicKey(p: bigint,q: bigint, d: bigint) {
     const x = (p-1n) * (q-1n)
-    const e = extendedEuclideanAlgorythm(d, x)
+    const e = extendedEuclideanAlgorithm(d, x) // to calculate multiplicative invere
     return e
 }

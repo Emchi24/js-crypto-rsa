@@ -1,3 +1,5 @@
+import numberToBinary from "./numberToBinary"
+
 export default function largeNumberModPow(m: bigint, e: bigint, n: bigint): bigint {
     const nInBinary: string = e.toString(2)
     const nlength = nInBinary.length
