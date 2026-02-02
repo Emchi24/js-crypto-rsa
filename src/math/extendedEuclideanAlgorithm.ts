@@ -54,7 +54,7 @@ export default function extendedEuclideanAlgorithm(a: bigint, b: bigint) {
         // y_k = x_k+1 - q_k * y_k+1
         y[k] = x[k+1] - q[k] * y[k+1]
 
-        // Bézout's identity must holf for every step 
+        // Bézout's identity must hold for every step 
         const check = gcd === (aArr[k] * x[k]) + (bArr[k] * y[k]) // gcd == 1
         if (!check) {
             throw Error("Mathematical Error in calculating multiplicative inverse: 1 != a * x + b * y")

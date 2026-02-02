@@ -1,6 +1,6 @@
 import numberToBinary from "./numberToBinary"
 
-// this is the encryption and decryption algorithm definied in the RSA paper
+// this is the encryption and decryption algorithm defined in the RSA paper
 export default function largeNumberModPow(m: bigint, e: bigint, n: bigint): bigint {
 
     const nInBinary: string = e.toString(2)

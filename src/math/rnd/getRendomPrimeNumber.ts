@@ -31,7 +31,7 @@ export default function getRendomPrimeNumber(bitLength: number) {
             }
             const modPowResult = largeNumberModPow(a, x, candidate)
 
-            // for a prime number, the following condition should allways be true
+            // for a prime number, the following condition should always be true
             const PrimCheck = gcd(a, candidate) === 1n && jacobi === modPowResult
 
             if(PrimCheck) {
@@ -42,13 +42,13 @@ export default function getRendomPrimeNumber(bitLength: number) {
                 }
                 else {
 
-                    // test is not compleated
+                    // test is not completed
                     continue
                 }
             }
             else {
                 
-                // faild test
+                // failed test
                 break
             } 
         }

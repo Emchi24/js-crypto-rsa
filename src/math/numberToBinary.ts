@@ -8,7 +8,7 @@ export default function numberToBinary(number: bigint): string {
     let tempBinaryString = ""
 
     while (x !== 0n) {
-        if (x % 2n === 0n) { // the last bit of every number (or LSB) is allways 0 if the number is even and 1 if it odd
+        if (x % 2n === 0n) { // the last bit of every number (or LSB) is always 0 if the number is even and 1 if it odd
             tempBinaryString += "0" 
         } else {
             tempBinaryString += "1"
