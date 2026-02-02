@@ -6,30 +6,49 @@ import largeNumberModPow from "../largeNumberPow";
 
 export default function getRendomPrimeNumber(bitLength: number) {
     while(true) {
-        const b = getRendomNumber(bitLength, true);
-        if (!isOdd(b)) {
+
+        // generate random candidate for prime number
+        const candidate = getRendomNumber(bitLength, true);
+
+        if (!isOdd(candidate)) {
             continue
         }
-        const x = (b-1n) / 2n
+        
+        // prepare exponent of a (candidate-1) / n for solovay strassen test
+        const x = (candidate-1n) / 2n
+
+        // repeat the test 100 times
         for (let i = 1; i <= 100; i++) {
+            
+            // generate random number a 
             const a = getRendomNumber(bitLength - 1, false)
-            let jacobi = jacobiSymbol(a, b)  
+
+            // calculate the jacobi symbol 
+            let jacobi = jacobiSymbol(a, candidate) 
+            
             if (jacobi == -1n) {
-                jacobi = b - 1n // modular arithmetic way to def jacobiSymbol = -1
+                jacobi = candidate - 1n // modular arithmetic way to def jacobiSymbol = -1
             }
-            const modPowResult = largeNumberModPow(a, x, b)
+            const modPowResult = largeNumberModPow(a, x, candidate)
 
+            // for a prime number, the following condition should allways be true
+            const PrimCheck = gcd(a, candidate) === 1n && jacobi === modPowResult
 
-            const PrimCheck = gcd(a, b) === 1n && jacobi === modPowResult
             if(PrimCheck) {
                 if (i == 100) {
-                    return b
+
+                    // passed the test
+                    return candidate
                 }
                 else {
+
+                    // test is not compleated
                     continue
                 }
             }
             else {
+                
+                // faild test
                 break
             } 
         }

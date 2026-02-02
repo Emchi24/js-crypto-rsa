@@ -1,6 +1,6 @@
 import { bigIntBlocksToString } from "./math/bigIntBlocksToString";
 import largeNumberModPow from "./math/largeNumberPow";
-import numberToBinary from "./math/numberToBinary";
+
 
 export default async function decrypt(toDecrypt: bigint[][], key: bigint, n: bigint,): Promise<string> {
     let decryptedBlocks: bigint[][] = []
@@ -10,6 +10,6 @@ export default async function decrypt(toDecrypt: bigint[][], key: bigint, n: big
         const decryptedBlock = [decryptedValues, decryptedLength]
         decryptedBlocks.push(decryptedBlock)
     })
-    const nInBinary = numberToBinary(n)
+
     return bigIntBlocksToString(decryptedBlocks)
 }

@@ -5,9 +5,15 @@ export function stringToBigIntBlocks(msg: string, nLength: number): [bigint, big
     }
 
     const blocks: [bigint, bigint][] = []
-    let bitCounter = 0 // ceep track of how many bits are in current block
-    let encodedCharCodeChain = 0n // char codes compressed together  
-    let encodedCharLengthChain = 0n // store how many bytes each charackter contains to decode it back to original form
+    
+    // ceep track of how many bits are in current block
+    let bitCounter = 0
+
+    // char codes compressed together  
+    let encodedCharCodeChain = 0n
+
+    // store how many bytes each charackter contains to decode it back to original form
+    let encodedCharLengthChain = 0n
 
     for (let i = 0; i < msg.length; i++) {
         const encoder = new TextEncoder()
@@ -30,7 +36,9 @@ export function stringToBigIntBlocks(msg: string, nLength: number): [bigint, big
         }
 
         encodedCharCodeChain = (encodedCharCodeChain << BigInt(bytes.length * 8)) | charCode 
-        encodedCharLengthChain = (encodedCharLengthChain << 8n) | BigInt(bytes.length) // ceep track of the length of each UTF-8 encodeing
+        
+        // ceep track of the length of each UTF-8 encodeing
+        encodedCharLengthChain = (encodedCharLengthChain << 8n) | BigInt(bytes.length)
         bitCounter += bytes.length * 8
     }
     
