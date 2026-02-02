@@ -2,7 +2,7 @@ import getRendomNumber from "./getRendomNumber";
 import gcd from "../gcd";
 import isOdd from "../isOdd";
 import jacobiSymbol from "../jacobiSymbol";
-import largeNumberModPow from "../largeNumberPow";
+import largeNumberModPow from "../largeNumberModPow";
 
 export default function getRendomPrimeNumber(bitLength: number) {
     while(true) {
@@ -21,7 +21,7 @@ export default function getRendomPrimeNumber(bitLength: number) {
         for (let i = 1; i <= 100; i++) {
             
             // generate random number a 
-            const a = getRendomNumber(bitLength - 1, false)
+            const a = getRendomNumber(bitLength, false)
 
             // calculate the jacobi symbol 
             let jacobi = jacobiSymbol(a, candidate) 

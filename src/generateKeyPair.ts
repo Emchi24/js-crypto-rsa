@@ -4,9 +4,10 @@ import extendedEuclideanAlgorithm from "./math/extendedEuclideanAlgorithm";
 
 // Find the private key in such a way that it satisfies the conditions defined in the RSA paper 
 export function getPrivateKey(p: bigint, q: bigint, bitLength: number) {
+    console.log(`bitlength: ${bitLength}`)
     const x = (p-1n) * (q-1n)
     while (true) {
-        const d = getRendomNumber((bitLength * 2), false)
+        const d = getRendomNumber((bitLength), false)
         const relativePrimeCheck = gcd(d, x) === 1n
         if (relativePrimeCheck) {
             return d

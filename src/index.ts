@@ -17,8 +17,8 @@ interface privateKey {
 
 export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: publicKey, privateKey: privateKey ]> {
     if (keyLength < 1024) {
-        if (keyLength <= 32) {
-            throw new Error("keyLength must be at least 33 bits long. A length of 1024 bits is recommended.")
+        if (keyLength < 32) {
+            throw new Error("keyLength must be at least 32 bits long. A length of 1024 bits is recommended.")
         }
         else {
             console.warn("It’s recommended that bitLength is at least 1024 bits each.")
@@ -39,9 +39,13 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
         "n": n
     }
 
+    console.log(publicKey, privateKey)
+
     const testMessage = "Hello World!"
     const encryptedMessage = await encryptMessage(testMessage, publicKey)
     const decryptedMessage = await decryptMessage(encryptedMessage, privateKey)
+
+    console.log(decryptedMessage)
     if (decryptedMessage !== testMessage) {
         return await generateKeyPair(keyLength)
     }
@@ -51,12 +55,12 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
 
 export async function signMessage(message: string, privateKey: privateKey) {
     const hashedMessage = await createSha256Hash(message)
-    const signedMessage = await encrypt(hashedMessage, privateKey.privateKey, privateKey.n)
+    const signedMessage = await encrypt(hashedMessage, privateKey.privateKey, privateKey.n, 32)
     return signedMessage
 }
 
 export async function encryptMessage(message: string, publicKey: publicKey): Promise<bigint[][]> {
-    return await encrypt(message, publicKey.publicKey, publicKey.n)
+    return await encrypt(message, publicKey.publicKey, publicKey.n, 32)
 }
 
 export async function verifyMessageSignature(message: string, singedMessage: bigint[][], publicKey: publicKey): Promise<boolean> {

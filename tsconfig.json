@@ -3,16 +3,20 @@
     "target": "ES2020",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "outDir": "./dist",
     "rootDir": "./src",
+    "outDir": "./dist",
+
+    
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true,         
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "sourceMap": true,
-    "lib": ["ES2020"]
+    "lib": ["ES2020"],
+    
+    "types": ["node"]              
   },
   "ts-node": {
     "compilerOptions": {
@@ -20,11 +24,11 @@
     }
   },
   "include": [
-    "src/**/*"
-, "index.test.js"  ],
+    "src/**/*",    
+    "index.test.js"
+  ],
   "exclude": [
     "node_modules",
     "dist"
   ]
 }
-

@@ -1,5 +1,4 @@
-export function stringToBigIntBlocks(msg: string, nLength: number): [bigint, bigint][] {
-    const maxBitsPerBlock = nLength - 1
+export function stringToBigIntBlocks(msg: string, maxBitsPerBlock: number): [bigint, bigint][] {
     if (maxBitsPerBlock < 32) {
         throw new Error("n must be at least 32")
     }
