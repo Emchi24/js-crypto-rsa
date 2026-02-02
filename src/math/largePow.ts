@@ -1,6 +1,8 @@
 import isOdd from "./isOdd"
 
 export default function largePow(basis: bigint, exponent: bigint): bigint {
+    
+    // handle base cases
     if (exponent == 0n) {
         return 1n
     }
@@ -14,7 +16,9 @@ export default function largePow(basis: bigint, exponent: bigint): bigint {
         let result = 1n
         let x = exponent
         while (x > 0n) {
+
             if (isOdd(x)) {
+
                 result *= basis
                 x--
             }

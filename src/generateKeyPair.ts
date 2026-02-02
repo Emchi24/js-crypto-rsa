@@ -1,10 +1,8 @@
-import getRendomPrimeNumber from "./math/rnd/getRendomPrimeNumber";
 import getRendomNumber from "./math/rnd/getRendomNumber";
 import gcd from "./math/gcd";
-import largeNumberModPow from "./math/largeNumberPow";
-import extendedEuclideanAlgorythm from "./math/extendedEuclideanAlgorythm";
+import extendedEuclideanAlgorithm from "./math/extendedEuclideanAlgorithm";
 
-
+// Find the private key in such a way that it satisfies the conditions defined in the RSA paper 
 export function getPrivateKey(p: bigint, q: bigint, bitLength: number) {
     const x = (p-1n) * (q-1n)
     while (true) {
@@ -15,8 +13,10 @@ export function getPrivateKey(p: bigint, q: bigint, bitLength: number) {
         }
     }
 }
+
+// Find the public key in such a way that it satisfies the conditions defined in the RSA paper 
 export function getPublicKey(p: bigint,q: bigint, d: bigint) {
     const x = (p-1n) * (q-1n)
-    const e = extendedEuclideanAlgorythm(d, x)
+    const e = extendedEuclideanAlgorithm(d, x) // to calculate multiplicative invere
     return e
 }

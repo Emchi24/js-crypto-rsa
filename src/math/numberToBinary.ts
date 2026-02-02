@@ -8,19 +8,16 @@ export default function numberToBinary(number: bigint): string {
     let tempBinaryString = ""
 
     while (x !== 0n) {
-        if (x % 2n === 0n) {
-            tempBinaryString += "0"
+        if (x % 2n === 0n) { // the last bit of every number (or LSB) is always 0 if the number is even and 1 if it odd
+            tempBinaryString += "0" 
         } else {
             tempBinaryString += "1"
         }
-        x /= 2n
+        x /= 2n // When dividing by 2 in binary, the last bit is removed
     }
 
-    let unpaddedBinaryString = ""
-    for (let i = tempBinaryString.length - 1; i >= 0; i--) {
-        unpaddedBinaryString += tempBinaryString[i]
-    }
-    
+    let unpaddedBinaryString = tempBinaryString.split("").reverse().join("") // reverse the binary string 
+
     const len = unpaddedBinaryString.length
     const remainder = len % 8
     let padding = ""
@@ -32,4 +29,5 @@ export default function numberToBinary(number: bigint): string {
 
     return padding + unpaddedBinaryString
 }
+
 

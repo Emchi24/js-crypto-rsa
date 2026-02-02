@@ -4,8 +4,6 @@ import { getPublicKey } from "./generateKeyPair"
 import encrypt from "./encrypt"
 import decrypt from "./decrypt"
 import createSha256Hash from "./hash"
-import { promises } from "dns"
-import { copyFileSync } from "fs"
 
 interface publicKey {
     "publicKey": bigint,
@@ -17,22 +15,22 @@ interface privateKey {
     "n": bigint
 }
 
-export async function generateKeyPair(bitLength: number) : Promise<[ publicKey: publicKey, privateKey: privateKey ]> {
-    if (bitLength < 1024) {
-        if (bitLength <= 32) {
-            throw new Error("bitLength must be at least 33 bits long. A length of 1024 bits is recommended.")
+export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: publicKey, privateKey: privateKey ]> {
+    if (keyLength < 1024) {
+        if (keyLength <= 32) {
+            throw new Error("keyLength must be at least 33 bits long. A length of 1024 bits is recommended.")
         }
         else {
             console.warn("It’s recommended that bitLength is at least 1024 bits each.")
         }
     }
-    const p = getRendomPrimeNumber(bitLength)
-    const q = getRendomPrimeNumber(bitLength)
+    const p = getRendomPrimeNumber(keyLength)
+    const q = getRendomPrimeNumber(keyLength)
     
     const n = p * q
 
     const privateKey = {
-        "privateKey": getPrivateKey(p, q, bitLength),
+        "privateKey": getPrivateKey(p, q, keyLength),
         "n": n
     } 
 
@@ -45,7 +43,7 @@ export async function generateKeyPair(bitLength: number) : Promise<[ publicKey: 
     const encryptedMessage = await encryptMessage(testMessage, publicKey)
     const decryptedMessage = await decryptMessage(encryptedMessage, privateKey)
     if (decryptedMessage !== testMessage) {
-        return await generateKeyPair(bitLength)
+        return await generateKeyPair(keyLength)
     }
     return [publicKey, privateKey]
 
@@ -61,7 +59,7 @@ export async function encryptMessage(message: string, publicKey: publicKey): Pro
     return await encrypt(message, publicKey.publicKey, publicKey.n)
 }
 
-export async function verifyMessageSigniture(message: string, singedMessage: bigint[][], publicKey: publicKey): Promise<boolean> {
+export async function verifyMessageSignature(message: string, singedMessage: bigint[][], publicKey: publicKey): Promise<boolean> {
     const decryptMessageSignature = await decrypt(singedMessage, publicKey.publicKey, publicKey.n)
     const messageHash = await createSha256Hash(message)
     if (messageHash !== decryptMessageSignature) {
