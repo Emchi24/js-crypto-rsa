@@ -12,9 +12,7 @@ export default async function encrypt(toEncrypt: string, key: bigint, n: bigint,
     const encryptedBlocks: bigint[][] =  []
     blocks.forEach(block => {
         const encryptedBlockValue = largeNumberModPow(block[0], key, n)
-        console.log("suc")
         const encryptedBlockLength = largeNumberModPow(block[1], key, n)
-        console.log("suc")
         const encryptedBlock = [encryptedBlockValue, encryptedBlockLength]
         encryptedBlocks.push(encryptedBlock)
     }) 

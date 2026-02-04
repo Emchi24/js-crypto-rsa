@@ -33,6 +33,7 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "semantic-release": "^24.2.7",
+    "tinybench": "^6.0.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.2"
   },
@@ -44,5 +45,14 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.12",
+    "@nestjs/core": "^11.1.12",
+    "@nestjs/platform-express": "^11.1.12",
+    "@nestjs/platform-socket.io": "^11.1.12",
+    "@nestjs/serve-static": "^5.0.4",
+    "@nestjs/websockets": "^11.1.12",
+    "plotly.js-dist-min": "^3.3.1"
   }
 }

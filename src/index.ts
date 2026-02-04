@@ -39,13 +39,10 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
         "n": n
     }
 
-    console.log(publicKey, privateKey)
-
     const testMessage = "Hello World!"
     const encryptedMessage = await encryptMessage(testMessage, publicKey)
     const decryptedMessage = await decryptMessage(encryptedMessage, privateKey)
 
-    console.log(decryptedMessage)
     if (decryptedMessage !== testMessage) {
         return await generateKeyPair(keyLength)
     }
