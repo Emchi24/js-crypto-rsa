@@ -16,15 +16,19 @@ export default async function executeBenchTest(
 
     bench.add(benchmarkName, async () => {
         const testResults = await toExecute()
-
         if (fs.existsSync(outputFilePathTestResult)) {
             fs.unlinkSync(outputFilePathTestResult)
         }
-        await fs.writeFile(outputFilePathTestResult, JSON.stringify(testResults, null, 1), 'utf8', () => {})
+        await fs.writeFile(
+            outputFilePathTestResult,
+            JSON.stringify(testResults, (key, value) =>
+                typeof value === 'bigint' ? value.toString() : value
+            ),
+            'utf8', () => {}
+            )
     })
 
     await bench.run()
-
     if (fs.existsSync(outputFilePathTinyBench)) {
         fs.unlinkSync(outputFilePathTinyBench)
     }

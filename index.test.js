@@ -3,8 +3,8 @@ const index = require('./dist/index.js')
 
 test('encrypt, sign, decrypt, and verify works correctly', async () => {
   const msg = "Hello, World!"
-  const [publicKeyTransmitter, privateKeyTransmitter] = await index.generateKeyPair(32)
-  const [publicKeyRecipient, privateKeyRecipient] = await index.generateKeyPair(32)
+  const [publicKeyTransmitter, privateKeyTransmitter] = await index.generateKeyPair(1024)
+  const [publicKeyRecipient, privateKeyRecipient] = await index.generateKeyPair(1024)
 
   const encryptedMessage = await index.encryptMessage(msg, publicKeyRecipient)
   const signedMessage = await index.signMessage(msg, privateKeyTransmitter)

@@ -3,9 +3,12 @@ import largeNumberModPow from "./math/largeNumberModPow"
 
 
 export default async function encrypt(toEncrypt: string, key: bigint, n: bigint, maxBitsPerBlock: number): Promise<bigint[][]> {
-    const keyLength = key.toString(2).length
 
-    if (maxBitsPerBlock > keyLength) {
+    if (typeof n == "undefined") {
+        throw Error("Test")
+    }
+    const nLength = n.toString(2).length
+    if (maxBitsPerBlock > nLength) {
         throw Error("encoded message is larger than the key")
     }
     const blocks = stringToBigIntBlocks(toEncrypt, maxBitsPerBlock)
