@@ -1,8 +1,8 @@
 import { getText } from "../executeEncryptionAndDecryptionTests"
 import performanceTestSpeed from "../../performanceTestSpeed"
 import executeBenchTest from "../../executeBenchTest"
-import { IndexRouteObject } from "react-router-dom"
-import { publicKeyType, encryptMessage, generateKeyPair, privateKeyType } from '../../../../dist/index.js';
+
+import { encryptMessage, generateKeyPair } from '../../../../dist/index.js';
 const idx = require('../../../../dist/index.js')
 
 // preperation function
@@ -36,5 +36,5 @@ async function encryptionSpeedTest(numberOfIterations: number, testUntil: number
 }
 
 executeBenchTest(async () => {
-    return await encryptionSpeedTest(100, 40)
+    return await encryptionSpeedTest(100, 4096)
 },"Performence speed test encryption", "performence_speed_test_encryption.json", "tinybench_performence_speed_test_encryption.json")
