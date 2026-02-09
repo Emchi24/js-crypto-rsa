@@ -23,7 +23,7 @@ export default async function executeBenchTest(
             outputFilePathTestResult,
             JSON.stringify(testResults, (key, value) =>
                 typeof value === 'bigint' ? value.toString() : value
-            ),
+            , 1),
             'utf8', () => {}
             )
     })

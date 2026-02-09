@@ -1,3 +1,5 @@
+import {privateKeyType, publicKeyType} from "../../dist/index.js"
+
 export type TestingResult = {
     "keySize": number
     "results": number[]
@@ -47,3 +49,18 @@ export const UTF8followerRange: Range = new Range(128, 191)
 export const UTF8RangeNames = Object.keys(UTF8Ranges) as Array<keyof typeof UTF8Ranges>;
 
 export type TestingFunctionNames = "key" | "encryption" | "decryption"
+
+export type encryptionFunctionResult = {
+    "privateKey": privateKeyType
+    "publicKey": publicKeyType
+    "encryptedText": any[]
+    "originalText": string
+
+}
+
+export type encryptionResults = {
+    "keySize": number
+    "results": number[]
+    "median": number
+    "executedFunctionResult": encryptionFunctionResult[]
+}

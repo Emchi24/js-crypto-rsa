@@ -53,6 +53,7 @@
     "@nestjs/platform-socket.io": "^11.1.12",
     "@nestjs/serve-static": "^5.0.4",
     "@nestjs/websockets": "^11.1.12",
+    "pidusage": "^4.0.1",
     "plotly.js-dist-min": "^3.3.1"
   }
 }

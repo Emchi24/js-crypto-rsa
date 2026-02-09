@@ -1,5 +1,5 @@
 import { TestingResult, TestingFunctionNames } from "./customTypes"
-import measureMemoryUsage from "./measureMemoryUsage"
+import measureMemoryAndCpuUsage from "./measureMemoryAndCpuUsage"
 import { calculateMedian } from "./calculateMedian"
 
 export default async function memoryUsageTest(    
@@ -8,33 +8,29 @@ export default async function memoryUsageTest(
     testUntilSize: number, 
     enlargeBy: number, 
     numOfIterations: number, 
-    toExecute: Function,
+    pathToWorker: string,
     preparingFunction?: Function
     ) {
      if (testUntilSize < 32) {
         throw Error("the key size must be at least 32")
     }
 
-    let result: TestingResult[] = []
+    let result: any[] = []
 
     for (let i = startingSize; i < testUntilSize; i += enlargeBy) {
-        let results: number[] = [] 
+        let results: any[] = [] 
             let rs = []
 
         for (let k = 0; k < numOfIterations; k++) {
             let memoryUsage
             let r
              if (preparingFunction) {
-                const prep = await preparingFunction(i)
-                memoryUsage = await measureMemoryUsage(async () => {
-                    r = await toExecute(i, prep)
-                })
+                const prep = await preparingFunction(i, k)
+                memoryUsage = await measureMemoryAndCpuUsage(pathToWorker, prep)
 
             }
             else {
-                memoryUsage = await measureMemoryUsage(async () => {
-                    r = await toExecute(i)
-                })
+                memoryUsage = await measureMemoryAndCpuUsage(pathToWorker, [i])
 
             }
 
@@ -49,7 +45,6 @@ export default async function memoryUsageTest(
         result.push({
             "keySize": i,
              "results": results,
-            "median": calculateMedian(results),
             "executedFunctionResult": rs
         })
     }

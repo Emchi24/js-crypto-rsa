@@ -3,7 +3,7 @@
     "target": "ES2020",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
 
     
@@ -25,7 +25,8 @@
   },
   "include": [
     "src/**/*",    
-    "index.test.js"
+    "index.test.js",
+    "benchmarking/**/*"
   ],
   "exclude": [
     "node_modules",

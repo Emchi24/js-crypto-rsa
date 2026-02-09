@@ -28,7 +28,7 @@ export default async function performanceTestSpeed(
             let endTimeStamp
             let r
             if (preparingFunction) {
-                const prep = await preparingFunction(i)
+                const prep = await preparingFunction(i, k)
                 startTimeStamp = performance.now() // timestamp in milsec
 
                 r = await toExecute(i, prep)
