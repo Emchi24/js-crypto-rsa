@@ -29,12 +29,12 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
     
     const n = p * q
 
-    const privateKey = {
+    const privateKey: privateKeyType = {
         "privateKey": getPrivateKey(p, q, keyLength),
         "n": n
     } 
 
-    const publicKey = {
+    const publicKey: publicKeyType = {
         "publicKey": getPublicKey(p,q,privateKey.privateKey),
         "n": n
     }

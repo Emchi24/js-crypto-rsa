@@ -17,7 +17,7 @@ export default async function performanceTestSpeed(
     }
     let result: TestingResult[] = [] 
 
-    for (let i = startingSize; i < testUntilSize; i+=enlargeBy) {
+    for (let i = startingSize; i <= testUntilSize; i+=enlargeBy) {
 
         let durationSum: number = 0
         let results: number[] = []
@@ -27,6 +27,7 @@ export default async function performanceTestSpeed(
             let startTimeStamp
             let endTimeStamp
             let r
+            console.log(`Speed test at keysize: ${i}, iteration: ${k}`)
             if (preparingFunction) {
                 const prep = await preparingFunction(i, k)
                 startTimeStamp = performance.now() // timestamp in milsec

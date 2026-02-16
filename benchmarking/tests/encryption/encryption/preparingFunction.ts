@@ -1,0 +1,44 @@
+import { getText } from "../executeEncryptionAndDecryptionTests"
+import { publicKeyType, privateKeyType } from "../../../../dist/index.js"
+import { readFile } from "fs/promises"
+
+import { generateKeyPair } from '../../../../dist/index.js';
+import { convertObjectBigIntStringsToBigInts } from "../../convertValueToBigint";
+
+type result = {
+    "publicKey": publicKeyType
+    "privateKey": privateKeyType
+    "keySize": bigint
+}
+
+type keygenResult = {
+    keySize: number
+    results: any[]
+    executedFunctionResult: result[]
+}
+
+export default async function preparingFunction(size: number, iteration: number, filePath: string) {
+    const file = await readFile(filePath, "utf8")
+    const json = JSON.parse(file) as keygenResult[]
+    const data = json.find((val) => val.keySize === size)
+    
+    let t = data?.executedFunctionResult[iteration]
+    let keyPair
+    let privateKey: any, publicKey: any
+
+    if (typeof t == "object") {
+        keyPair = convertObjectBigIntStringsToBigInts(t)
+            publicKey = keyPair.publicKey
+            privateKey = keyPair.privateKey
+    }
+    else {
+        console.log(`there is no keypair for size: ${size}, iteration: ${iteration}`);
+        // TODO generate new keypair
+           [publicKey, privateKey] = await generateKeyPair(size)
+    }
+
+    const textSize = Math.round((publicKey.n - 2n).toString(2).length / 8)
+    const text = getText(textSize)
+    return [publicKey, privateKey, text]
+    
+} 

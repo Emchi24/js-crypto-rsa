@@ -2,7 +2,7 @@ import { TestingResult, TestingFunctionNames } from "./customTypes"
 import measureMemoryAndCpuUsage from "./measureMemoryAndCpuUsage"
 import { calculateMedian } from "./calculateMedian"
 
-export default async function memoryUsageTest(    
+export default async function memoryAndCpuUsageTest(    
     name: TestingFunctionNames, 
     startingSize: number, 
     testUntilSize: number, 
@@ -17,28 +17,35 @@ export default async function memoryUsageTest(
 
     let result: any[] = []
 
-    for (let i = startingSize; i < testUntilSize; i += enlargeBy) {
+    for (let i = startingSize; i <= testUntilSize; i += enlargeBy) {
         let results: any[] = [] 
             let rs = []
 
         for (let k = 0; k < numOfIterations; k++) {
-            let memoryUsage
-            let r
+
+            console.log(`Memory and Cpu test at keysize: ${i}, iteration: ${k}`)
+            let memoryAndCpuUsage, r
              if (preparingFunction) {
                 const prep = await preparingFunction(i, k)
-                memoryUsage = await measureMemoryAndCpuUsage(pathToWorker, prep)
+               let t = await measureMemoryAndCpuUsage(pathToWorker, [prep, i])
+               memoryAndCpuUsage = t.performance
+               r = t.executedWorkerResults
+
 
             }
             else {
-                memoryUsage = await measureMemoryAndCpuUsage(pathToWorker, [i])
+                let t = await measureMemoryAndCpuUsage(pathToWorker, [i])
+                memoryAndCpuUsage = t.performance
+               r = t.executedWorkerResults
 
             }
 
-            if (memoryUsage == null) {
+            if (memoryAndCpuUsage == null) {
                 continue
             }
+            console.log(r)
 
-            results.push(memoryUsage)
+            results.push(memoryAndCpuUsage)
             rs.push(r)
         }
 
