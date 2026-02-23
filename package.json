@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:bench": "tsc -p tsconfig.benchmarking.json",
+    "build:bench": "tsc -p ./benchmarking/tsconfig.json",
     "semantic-release": "semantic-release",
     "test": "jest"
   },

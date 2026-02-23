@@ -1,0 +1,7 @@
+[
+ {
+  "Task name": "decryption_speed_test",
+  "Error": "there is no data for tests with an keySize of 40 bits in ./performence_speed_test_encryption.json",
+  "Stack": "Error: there is no data for tests with an keySize of 40 bits in ./performence_speed_test_encryption.json\n    at preparingFunction (/root/projects/js-crypto-rsa/benchmarking/tests/encryption/decryption/decryptionSpeedTest.ts:22:11)\n    at async /root/projects/js-crypto-rsa/benchmarking/tests/encryption/decryption/decryptionSpeedTest.ts:57:14\n    at async performanceTestSpeed (/root/projects/js-crypto-rsa/benchmarking/tests/performanceTestSpeed.ts:34:30)\n    at async /root/projects/js-crypto-rsa/benchmarking/tests/encryption/decryption/decryptionSpeedTest.ts:47:10\n    at async Task.<anonymous> (/root/projects/js-crypto-rsa/benchmarking/tests/executeBenchTest.ts:18:29)\n    at async Task.#h (file:///root/projects/js-crypto-rsa/node_modules/tinybench/dist/index.js:1:30890)\n    at async j (file:///root/projects/js-crypto-rsa/node_modules/tinybench/dist/index.js:1:29625)\n    at async Task.#p (file:///root/projects/js-crypto-rsa/node_modules/tinybench/dist/index.js:1:29981)\n    at async Task.run (file:///root/projects/js-crypto-rsa/node_modules/tinybench/dist/index.js:1:28060)\n    at async Bench.run (file:///root/projects/js-crypto-rsa/node_modules/tinybench/dist/index.js:1:34288)"
+ }
+]

@@ -1,5 +1,7 @@
 import { TestingResult, TestingFunctionNames } from "./customTypes"
 import { calculateMedian } from "./calculateMedian"
+import { verify } from "node:crypto"
+import verifyResults from "./encryption/decryption/verifyResults"
 
 export default async function performanceTestSpeed(
     name: TestingFunctionNames, 
@@ -47,6 +49,13 @@ export default async function performanceTestSpeed(
             durationSum += endTimeStamp - startTimeStamp
             results.push(endTimeStamp - startTimeStamp)
             rs.push(r)
+
+            if (name == "decryption") {
+                const isSame = verifyResults(r)
+                if (!isSame) {
+                    console.log(`decryptedData is no the same as original data: ${r}`)
+                }
+            }
         }
         result.push({
             "keySize": i,

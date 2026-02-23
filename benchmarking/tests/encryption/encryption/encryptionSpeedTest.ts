@@ -11,7 +11,7 @@ executeBenchTest(async () => {
             4096, // test until
             512, // enlarge by
             200, // number of iterations per size
-        async (iteration: number, prep: any[]) => {
+        async (size: number, prep: any[]) => {
             console.log(prep)
             const publicKey = prep[0]
             const privateKey =  prep[1]
