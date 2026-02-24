@@ -18,14 +18,20 @@ export interface privateKeyType {
 export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: publicKeyType, privateKey: privateKeyType ]> {
     if (keyLength < 1024) {
         if (keyLength < 32) {
-            throw new Error("keyLength must be at least 32 bits long. A length of 1024 bits is recommended.")
+            throw new Error("KeyLength must be at least 32 bits long. A length of 1024 bits is recommended.")
         }
         else {
             console.log("It’s recommended that bitLength is at least 1024 bits each.")
         }
     }
-    const p = getRendomPrimeNumber(keyLength)
-    const q = getRendomPrimeNumber(keyLength)
+    
+    if (keyLength % 8 != 0) {
+        throw Error("The key Length must be devisile by 8")
+    }
+
+    const primeSize = keyLength / 2
+    const p = getRendomPrimeNumber(primeSize)
+    const q = getRendomPrimeNumber(primeSize)
     
     const n = p * q
 

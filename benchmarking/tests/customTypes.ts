@@ -4,6 +4,7 @@ export type TestingResult = {
     "keySize": number
     "results": number[]
     "median": number
+    "avg": number
     "executedFunctionResult": any[]
 }
 

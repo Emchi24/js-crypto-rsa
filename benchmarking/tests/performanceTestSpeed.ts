@@ -1,7 +1,7 @@
 import { TestingResult, TestingFunctionNames } from "./customTypes"
 import { calculateMedian } from "./calculateMedian"
-import { verify } from "node:crypto"
 import verifyResults from "./encryption/decryption/verifyResults"
+import calculateAvg from "./calculateAvg"
 
 export default async function performanceTestSpeed(
     name: TestingFunctionNames, 
@@ -61,6 +61,7 @@ export default async function performanceTestSpeed(
             "keySize": i,
             "results": results,
             "median": calculateMedian(results),
+            "avg": calculateAvg(results),
             "executedFunctionResult": rs
         })
     }
