@@ -40,15 +40,14 @@ type ranges = {
 export type UTF8RangeKeys = keyof ranges
 
 export const UTF8Ranges: ranges = {
-    oneByte: new Range(0, 127),
+    oneByte: new Range(32, 126), 
     twoBytes: new Range(194, 223),
     threeBytes: new Range(224, 239),
     fourBytes: new Range(240, 244)
 }
 export const UTF8followerRange: Range = new Range(128, 191)
 
-export const UTF8RangeNames = Object.keys(UTF8Ranges) as Array<keyof typeof UTF8Ranges>;
-
+export const UTF8RangeNames = Object.keys(UTF8Ranges) as Array<keyof typeof UTF8Ranges>
 export type TestingFunctionNames = "key" | "encryption" | "decryption"
 
 export type encryptionFunctionResult = {

@@ -3,9 +3,10 @@ import stringToObject from "../convertStringToObject"
 import objectToString from "../convertObjectToString"
 
 export default async function decryptionWorker(args: any[]) {
-    const publicKey  = args[0]
-    const privateKey =  args[1]
-    const encryptedText = args[2]
+  const encryptedText = args[0]
+  const publicKey = args[1]
+  const privateKey = args[2]
+  const originalText = args[3]
 
     const decrypedText = await decryptMessage(encryptedText, privateKey)
     
@@ -13,7 +14,8 @@ export default async function decryptionWorker(args: any[]) {
         "encryptedText": encryptedText,
         "publicKey": publicKey,
         "privateKey": privateKey,
-        "decryptedText": decrypedText
+        "decryptedText": decrypedText,
+        "originalText": originalText
     }
 }
 

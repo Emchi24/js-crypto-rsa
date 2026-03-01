@@ -1,0 +1,10 @@
+[
+ {
+  "Task name": "memory usage",
+  "Latency avg (ns)": "7747761363 ± 0.00%",
+  "Latency med (ns)": "7747761363 ± 0.00",
+  "Throughput avg (ops/s)": "0 ± 0.00%",
+  "Throughput med (ops/s)": "0 ± 0",
+  "Samples": 1
+ }
+]

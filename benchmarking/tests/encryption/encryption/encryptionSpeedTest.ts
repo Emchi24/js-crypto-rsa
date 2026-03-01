@@ -7,10 +7,10 @@ const filePath = "./keygen_memory_an_cpu_test.json"
 
 executeBenchTest(async () => {
         return await performanceTestSpeed("encryption",
-            1024, // start at
-            4096, // test until
+            512, // start at
+            512, // test until
             512, // enlarge by
-            200, // number of iterations per size
+            100, // number of iterations per size
         async (size: number, prep: any[]) => {
             console.log(prep)
             const publicKey = prep[0]

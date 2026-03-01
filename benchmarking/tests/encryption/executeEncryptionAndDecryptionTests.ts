@@ -1,7 +1,7 @@
 import { UTF8Ranges, UTF8RangeKeys, UTF8RangeNames, UTF8followerRange, Range, TestingResult } from "../customTypes"
 
 function getRandomIdxFromArr(arr: any[]) {
-    return Math.floor(Math.random() *Math.random() * (arr.length - 1)) 
+    return Math.floor(Math.random() * (arr.length - 1)) 
 }
 
 function generateRandomBytes(limit: number) {
@@ -16,7 +16,7 @@ function generateRandomBytes(limit: number) {
     const amountOfbytes: UTF8RangeKeys = UTF8RangeNames[idx]
 
     const rangeArr = UTF8Ranges[amountOfbytes].arr
-    const decoder = new TextDecoder()
+    const decoder = new TextDecoder("utf-8", { fatal: true })
     let randomUTF8Bytes: number[] = []
 
     const randomNumber = rangeArr[getRandomIdxFromArr(rangeArr)]
@@ -43,7 +43,7 @@ function generateRandomBytes(limit: number) {
 
     // determent weahter followers are needed
     if (idx > 0) {
-        for (let i = 1; i < idx + 1; i++) {
+        for (let i = 1; i <= idx; i++) {
             if (i == 1) {
                 const randomByteidx = getRandomIdxFromArr(secondByteRoul.arr)
                 randomUTF8Bytes.push(secondByteRoul.arr[randomByteidx]) 

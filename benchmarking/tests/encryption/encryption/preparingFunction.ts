@@ -37,7 +37,7 @@ export default async function preparingFunction(size: number, iteration: number,
            [publicKey, privateKey] = await generateKeyPair(size)
     }
 
-    const textSize = Math.round((publicKey.n - 2n).toString(2).length / 8)
+    const textSize = 16
     const text = getText(textSize)
     return [publicKey, privateKey, text]
     

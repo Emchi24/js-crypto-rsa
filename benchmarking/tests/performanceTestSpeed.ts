@@ -12,11 +12,10 @@ export default async function performanceTestSpeed(
     toExecute: Function,
     preparingFunction?: Function) {
 
-    if (name == "key") {
-        if (testUntilSize < 32) {
-            throw Error("the key size must be at least 32")
-        }
+    if (testUntilSize < 32) {
+        throw Error("the key size must be at least 32")
     }
+
     let result: TestingResult[] = [] 
 
     for (let i = startingSize; i <= testUntilSize; i+=enlargeBy) {
@@ -53,7 +52,7 @@ export default async function performanceTestSpeed(
             if (name == "decryption") {
                 const isSame = verifyResults(r)
                 if (!isSame) {
-                    console.log(`decryptedData is no the same as original data: ${r}`)
+                    console.log(`decryptedData is no the same as original data: decrypted ${r.decryptedText} vs original ${r.originalText}`)
                 }
             }
         }
