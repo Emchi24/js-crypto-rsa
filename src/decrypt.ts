@@ -1,8 +1,8 @@
 import { bigIntBlocksToString } from "./math/bigIntBlocksToString";
-import largeNumberModPow from "./math/largeNumberPow";
+import largeNumberModPow from "./math/largeNumberModPow";
 
 
-export default async function decrypt(toDecrypt: bigint[][], key: bigint, n: bigint,): Promise<string> {
+export default async function decrypt(toDecrypt: bigint[][], key: bigint, n: bigint): Promise<string> {
     let decryptedBlocks: bigint[][] = []
     toDecrypt.forEach(block => {
         const decryptedValues = largeNumberModPow(block[0], key, n)

@@ -1,0 +1,10 @@
+[
+ {
+  "Task name": "speed Test",
+  "Latency avg (ns)": "22025920388814 ± 0.00%",
+  "Latency med (ns)": "22025920388814 ± 0.00",
+  "Throughput avg (ops/s)": "0 ± 0.00%",
+  "Throughput med (ops/s)": "0 ± 0",
+  "Samples": 1
+ }
+]

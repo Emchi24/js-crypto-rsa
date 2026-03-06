@@ -5,36 +5,42 @@ import encrypt from "./encrypt"
 import decrypt from "./decrypt"
 import createSha256Hash from "./hash"
 
-interface publicKey {
+export interface publicKeyType {
     "publicKey": bigint,
     "n": bigint
 }
 
-interface privateKey {
+export interface privateKeyType {
     "privateKey": bigint,
     "n": bigint
 }
 
-export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: publicKey, privateKey: privateKey ]> {
+export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: publicKeyType, privateKey: privateKeyType ]> {
     if (keyLength < 1024) {
-        if (keyLength <= 32) {
-            throw new Error("keyLength must be at least 33 bits long. A length of 1024 bits is recommended.")
+        if (keyLength < 32) {
+            throw new Error("KeyLength must be at least 32 bits long. A length of 1024 bits is recommended.")
         }
         else {
-            console.warn("It’s recommended that bitLength is at least 1024 bits each.")
+            console.log("It’s recommended that bitLength is at least 1024 bits each.")
         }
     }
-    const p = getRendomPrimeNumber(keyLength)
-    const q = getRendomPrimeNumber(keyLength)
+    
+    if (keyLength % 8 != 0) {
+        throw Error("The key Length must be devisile by 8")
+    }
+
+    const primeSize = keyLength / 2
+    const p = getRendomPrimeNumber(primeSize)
+    const q = getRendomPrimeNumber(primeSize)
     
     const n = p * q
 
-    const privateKey = {
+    const privateKey: privateKeyType = {
         "privateKey": getPrivateKey(p, q, keyLength),
         "n": n
     } 
 
-    const publicKey = {
+    const publicKey: publicKeyType = {
         "publicKey": getPublicKey(p,q,privateKey.privateKey),
         "n": n
     }
@@ -42,6 +48,7 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
     const testMessage = "Hello World!"
     const encryptedMessage = await encryptMessage(testMessage, publicKey)
     const decryptedMessage = await decryptMessage(encryptedMessage, privateKey)
+
     if (decryptedMessage !== testMessage) {
         return await generateKeyPair(keyLength)
     }
@@ -49,17 +56,17 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
 
 }
 
-export async function signMessage(message: string, privateKey: privateKey) {
+export async function signMessage(message: string, privateKey: privateKeyType) {
     const hashedMessage = await createSha256Hash(message)
-    const signedMessage = await encrypt(hashedMessage, privateKey.privateKey, privateKey.n)
+    const signedMessage = await encrypt(hashedMessage, privateKey.privateKey, privateKey.n, privateKey.n.toString(2).length - 2)
     return signedMessage
 }
 
-export async function encryptMessage(message: string, publicKey: publicKey): Promise<bigint[][]> {
-    return await encrypt(message, publicKey.publicKey, publicKey.n)
+export async function encryptMessage(message: string, publicKey: publicKeyType): Promise<bigint[][]> {
+    return await encrypt(message, publicKey.publicKey, publicKey.n, publicKey.n.toString(2).length - 2)
 }
 
-export async function verifyMessageSignature(message: string, singedMessage: bigint[][], publicKey: publicKey): Promise<boolean> {
+export async function verifyMessageSignature(message: string, singedMessage: bigint[][], publicKey: publicKeyType): Promise<boolean> {
     const decryptMessageSignature = await decrypt(singedMessage, publicKey.publicKey, publicKey.n)
     const messageHash = await createSha256Hash(message)
     if (messageHash !== decryptMessageSignature) {
@@ -68,6 +75,6 @@ export async function verifyMessageSignature(message: string, singedMessage: big
     return true 
 }
 
-export async function decryptMessage(encryptedMessage: bigint[][], privateKey: privateKey): Promise<string> {
+export async function decryptMessage(encryptedMessage: bigint[][], privateKey: privateKeyType): Promise<string> {
     return await decrypt(encryptedMessage, privateKey.privateKey, privateKey.n)
 }
