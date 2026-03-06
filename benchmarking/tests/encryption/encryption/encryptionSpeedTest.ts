@@ -3,14 +3,14 @@ import preparingFunction from "./preparingFunction"
 import { encryptMessage } from '../../../../dist/index.js';
 import executeBenchTest from "../../executeBenchTest";
 
-const filePath = "./keygen_memory_an_cpu_test.json"
+const filePath = "./keygen_speed_test_results.json"
 
 executeBenchTest(async () => {
         return await performanceTestSpeed("encryption",
-            512, // start at
-            512, // test until
+            1024, // start at
+            4096, // test until
             512, // enlarge by
-            100, // number of iterations per size
+            200, // number of iterations per size
         async (size: number, prep: any[]) => {
             console.log(prep)
             const publicKey = prep[0]

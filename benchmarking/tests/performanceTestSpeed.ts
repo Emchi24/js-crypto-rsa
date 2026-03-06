@@ -52,7 +52,7 @@ export default async function performanceTestSpeed(
             if (name == "decryption") {
                 const isSame = verifyResults(r)
                 if (!isSame) {
-                    console.log(`decryptedData is no the same as original data: decrypted ${r.decryptedText} vs original ${r.originalText}`)
+                    throw Error(`decryptedData is no the same as original data: decrypted ${r.decryptedText} vs original ${r.originalText}`)
                 }
             }
         }

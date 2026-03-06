@@ -66,8 +66,10 @@ export default async function memoryUsageTest(
                 mem.push(m.memory)
             })
             results.push(monitor)
-            if (!verifyResults(r)) {
-                console.log("DECRYPTED TEXT IS NOT THE SAME AS ORIGINAL TEXT")
+            if (name == "decryption") {
+                if (!verifyResults(r)) {
+                    throw Error(`decryptedData is no the same as original data: decrypted ${r.decryptedText} vs original ${r.originalText}`)
+                }
             }
             rs.push(r)
         }

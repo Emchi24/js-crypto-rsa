@@ -34,10 +34,10 @@ async function executeDecryptionSpeedTest(size: number, prep: any[]) : Promise<d
 executeBenchTest(async () => {
   return await performanceTestSpeed(
     "decryption",
-    512, 
-    512, 
-    8,
-    100,
+    1024, 
+    4096, 
+    512,
+    200,
     async (size: number, prep: any[]) => {
       return await executeDecryptionSpeedTest(size, prep)
     },

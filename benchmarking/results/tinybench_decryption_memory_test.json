@@ -1,0 +1,10 @@
+[
+ {
+  "Task name": "decryption_memory_test",
+  "Latency avg (ns)": "3629782813724 ± 0.00%",
+  "Latency med (ns)": "3629782813724 ± 0.00",
+  "Throughput avg (ops/s)": "0 ± 0.00%",
+  "Throughput med (ops/s)": "0 ± 0",
+  "Samples": 1
+ }
+]

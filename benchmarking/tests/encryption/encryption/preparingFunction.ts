@@ -3,7 +3,7 @@ import { publicKeyType, privateKeyType } from "../../../../dist/index.js"
 import { readFile } from "fs/promises"
 
 import { generateKeyPair } from '../../../../dist/index.js';
-import { convertObjectBigIntStringsToBigInts } from "../../convertValueToBigint";
+import { convertObjectBigIntStringsToBigIntObject } from "../../convertValueToBigintObject";
 
 type result = {
     "publicKey": publicKeyType
@@ -27,9 +27,10 @@ export default async function preparingFunction(size: number, iteration: number,
     let privateKey: any, publicKey: any
 
     if (typeof t == "object") {
-        keyPair = convertObjectBigIntStringsToBigInts(t)
-            publicKey = keyPair.publicKey
-            privateKey = keyPair.privateKey
+        console.log(t)
+        keyPair = convertObjectBigIntStringsToBigIntObject(t)
+            publicKey = keyPair[0]
+            privateKey = keyPair[1]
     }
     else {
         console.log(`there is no keypair for size: ${size}, iteration: ${iteration}`);
