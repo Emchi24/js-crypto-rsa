@@ -29,19 +29,55 @@ function roundNumber(num, maxFractionDigits) {
     } catch(error) {console.log(error)}
 }
 
-async function plotData(dataFilePath, plotYLable, divId) {
-    const data = await fetchData(dataFilePath)
+function prepData(devideBy, data) {
     const keySizes = []
     const medians = []
     const avgs = []
-    
+
     data.forEach(keySize => {
-        const m =  roundNumber((keySize.median / 1000), 2)
-        const a =  roundNumber((keySize.avg / 1000), 2)
+        const m =  roundNumber((keySize.median / devideBy), 2)
+        const a =  roundNumber((keySize.avg / devideBy), 2)
+        console.log(m)
         keySizes.push(keySize.keySize)
         medians.push(m)
         avgs.push(a)
     })
+    
+    return {
+        "keySizes": keySizes,
+        "medians": medians,
+        "avgs": avgs
+    }
+}
+
+async function plotData(testType, plotName, dataFilePath, plotYLable, divId) {
+    const data = await fetchData(dataFilePath)
+    let keySizes, medians, avgs
+    
+    if (testType ==  "keyGenSpeedTest") {
+        const t = prepData(1000, data)
+        console.log(t)
+        keySizes = t.keySizes
+        medians = t.medians
+        avgs = t.avgs
+    }
+
+    if (testType == "memoryTest") {
+        const t = prepData(1024*1024, data)
+        console.log(t)
+        keySizes = t.keySizes
+        medians = t.medians
+        avgs = t.avgs
+    }
+
+    if (testType == "encryptionAndDecryptionSpeedTest") {
+        const t = prepData(1, data)
+        console.log(t)
+        keySizes = t.keySizes
+        medians = t.medians
+        avgs = t.avgs
+    }
+    console.log(keySizes, medians, avgs)
     const MedianDataTrace = {
         x: keySizes,
         y: medians,
@@ -59,12 +95,11 @@ async function plotData(dataFilePath, plotYLable, divId) {
         mode: 'lines+markers',              
         line: {color: 'orange'}        
     }
-
     const Traces = [MedianDataTrace, AvgDataTrace]
 
     const layout = {
         title: { 
-            text: "Key generation speed benchmark results" 
+            text: plotName 
         },
         xaxis: { 
             title: { text: "Key Size in Bit" },
@@ -81,5 +116,12 @@ async function plotData(dataFilePath, plotYLable, divId) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await plotData("./keygen_speed_test_results.json", "Key Generation Execution Time in seconds (rounded to second decimal place)", "keyGenSpeedTest")
+    await plotData("keyGenSpeedTest", "Key Generation Speed Test", "./keygen_speed_test.json", "Key Generation Execution Time in seconds (rounded to second decimal place)", "keyGenSpeedTest")
+    await plotData("memoryTest", "Key Generation Memory Test", "./keygen_memory_test.json", "Key Generation memory usage in mb (rounded to second decimal place)", "keyGenMemoryTest")
+    await plotData("encryptionAndDecryptionSpeedTest", "Encryption Speed Test", "./encryption_speed_test.json", "Encryption Execution Time in milliseconds (rounded to second decimal place)", "encryptionSpeedTest")
+    await plotData("memoryTest", "Encryption Memory Test", "./encryption_memory_test.json", "Encryption memory usage in mb (rounded to second decimal place)", "encryptionMemoryTest")
+
+    await plotData("encryptionAndDecryptionSpeedTest", "Decyption Speed Test", "./decryption_speed_test.json", "Decryption Execution Time in milliseconds (rounded to second decimal place)", "decryptionSpeedTest")
+    await plotData("memoryTest", "Decryption Memory Test", "./decryption_memory_test.json", "Decryption memory usage in mb (rounded to second decimal place)", "decryptionMemoryTest")
+    console.log("finished")
 })
