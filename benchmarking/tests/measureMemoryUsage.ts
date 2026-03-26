@@ -1,6 +1,6 @@
 import {fork} from "node:child_process"
-import objectToString from "./convertObjectToString"
-import stringToObject from "./convertStringToObject"
+import objectToString from "../../src/convertObjectToString"
+import stringToObject from "../../src/convertStringToObject"
 
 const pidusage = require("pidusage")
 

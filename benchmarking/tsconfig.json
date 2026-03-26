@@ -3,7 +3,7 @@
     "target": "ES2020",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "rootDir": "./tests",
+    "rootDir": "../",
     "outDir": "./dist-benchmark",
 
     
@@ -24,7 +24,7 @@
     }
   },
   "include": [
-    "tests/**/*", 
+    "tests/**/*", "../src/convertStringToObject.ts", "../src/convertValueToBigintObject.ts", "../src/convertObjectToString.ts", 
   ],
   "exclude": [
     "node_modules",

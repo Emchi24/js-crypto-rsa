@@ -1,6 +1,6 @@
 import { encryptMessage } from "../../../dist/index"
-import stringToObject from "../convertStringToObject"
-import objectToString from "../convertObjectToString"
+import stringToObject from "../../../src/convertStringToObject"
+import objectToString from "../../../src/convertObjectToString"
 
 export default async function encryptionWorker(args: any[]) {
     const publicKey = args[0]

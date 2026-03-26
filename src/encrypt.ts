@@ -2,7 +2,7 @@ import { stringToBigIntBlocks } from "./math/stringToBigIntBlocks"
 import largeNumberModPow from "./math/largeNumberModPow"
 
 
-export default async function encrypt(toEncrypt: string, key: bigint, n: bigint, maxBitsPerBlock: number): Promise<bigint[][]> {
+export default async function encrypt(toEncrypt: string, key: bigint, n: bigint, maxBitsPerBlock: number): Promise<string[][]> {
 
     if (typeof n == "undefined") {
         throw Error("Test")
@@ -12,10 +12,10 @@ export default async function encrypt(toEncrypt: string, key: bigint, n: bigint,
         throw Error("encoded message is larger than the key")
     }
     const blocks = stringToBigIntBlocks(toEncrypt, maxBitsPerBlock)
-    const encryptedBlocks: bigint[][] =  []
+    const encryptedBlocks: string[][] =  []
     blocks.forEach(block => {
-        const encryptedBlockValue = largeNumberModPow(block[0], key, n)
-        const encryptedBlockLength = largeNumberModPow(block[1], key, n)
+        const encryptedBlockValue = String(largeNumberModPow(block[0], key, n))
+        const encryptedBlockLength = String(largeNumberModPow(block[1], key, n))
         const encryptedBlock = [encryptedBlockValue, encryptedBlockLength]
         encryptedBlocks.push(encryptedBlock)
     }) 

@@ -1,6 +1,6 @@
 import { generateKeyPair } from "../../../dist/index.js"
-import stringToObject from "../convertStringToObject"
-import objectToString from "../convertObjectToString"
+import stringToObject from "../../../src/convertStringToObject"
+import objectToString from "../../../src/convertObjectToString"
 
 export default async function keyGenerationWorker(keySize: number) {
     const [publicKey, privateKey] = await generateKeyPair(keySize)

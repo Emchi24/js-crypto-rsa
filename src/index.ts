@@ -4,7 +4,19 @@ import { getPublicKey } from "./generateKeyPair"
 import encrypt from "./encrypt"
 import decrypt from "./decrypt"
 import createSha256Hash from "./hash"
+import stringToObject from "./convertStringToObject"
+import objectToString from "./convertObjectToString"
+import { publicDecrypt } from "crypto"
+import { StringifyOptions } from "querystring"
 
+function isPublicKey(obj: any) {
+    if (typeof obj != "object") {
+        throw TypeError("object is not of type public key")
+    }
+    if (!obj.publicKey || typeof obj.publicKey != "bigint" || !obj.n || typeof obj.n != "bigint") {
+        throw TypeError("object is not of type public key")
+    }
+}
 export interface publicKeyType {
     "publicKey": bigint,
     "n": bigint
@@ -15,7 +27,7 @@ export interface privateKeyType {
     "n": bigint
 }
 
-export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: publicKeyType, privateKey: privateKeyType ]> {
+export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: string, privateKey: string ]> {
     if (keyLength < 1024) {
         if (keyLength < 32) {
             throw new Error("KeyLength must be at least 32 bits long. A length of 1024 bits is recommended.")
@@ -46,28 +58,31 @@ export async function generateKeyPair(keyLength: number) : Promise<[ publicKey: 
     }
 
     const testMessage = "Hello World!"
-    const encryptedMessage = await encryptMessage(testMessage, publicKey)
-    const decryptedMessage = await decryptMessage(encryptedMessage, privateKey)
+    const encryptedMessage = await encryptMessage(testMessage, objectToString(publicKey))
+    const decryptedMessage = await decryptMessage(encryptedMessage, objectToString(privateKey))
 
     if (decryptedMessage !== testMessage) {
         return await generateKeyPair(keyLength)
     }
-    return [publicKey, privateKey]
+    return [objectToString(publicKey), objectToString(privateKey)]
 
 }
 
-export async function signMessage(message: string, privateKey: privateKeyType) {
+export async function signMessage(message: string, privateKey: string) {
+    const convertedPrivateKey = stringToObject(privateKey)
     const hashedMessage = await createSha256Hash(message)
-    const signedMessage = await encrypt(hashedMessage, privateKey.privateKey, privateKey.n, privateKey.n.toString(2).length - 2)
+    const signedMessage = await encrypt(hashedMessage, convertedPrivateKey.privateKey, convertedPrivateKey.n, convertedPrivateKey.n.toString(2).length - 2)
     return signedMessage
 }
 
-export async function encryptMessage(message: string, publicKey: publicKeyType): Promise<bigint[][]> {
-    return await encrypt(message, publicKey.publicKey, publicKey.n, publicKey.n.toString(2).length - 2)
+export async function encryptMessage(message: string, publicKey: string): Promise<string[][]> {
+    const convertedPublicKey = stringToObject(publicKey)
+    return await encrypt(message, convertedPublicKey.publicKey, convertedPublicKey.n, convertedPublicKey.n.toString(2).length - 2)
 }
 
-export async function verifyMessageSignature(message: string, singedMessage: bigint[][], publicKey: publicKeyType): Promise<boolean> {
-    const decryptMessageSignature = await decrypt(singedMessage, publicKey.publicKey, publicKey.n)
+export async function verifyMessageSignature(message: string, singedMessage: string[][], publicKey: string): Promise<boolean> {
+    const convertedPublicKey = stringToObject(publicKey)
+    const decryptMessageSignature = await decrypt(singedMessage, convertedPublicKey.publicKey, convertedPublicKey.n)
     const messageHash = await createSha256Hash(message)
     if (messageHash !== decryptMessageSignature) {
         return false
@@ -75,6 +90,7 @@ export async function verifyMessageSignature(message: string, singedMessage: big
     return true 
 }
 
-export async function decryptMessage(encryptedMessage: bigint[][], privateKey: privateKeyType): Promise<string> {
-    return await decrypt(encryptedMessage, privateKey.privateKey, privateKey.n)
+export async function decryptMessage(encryptedMessage: string[][], privateKey: string): Promise<string> {
+    const convertedPrivateKey = stringToObject(privateKey)
+    return await decrypt(encryptedMessage, convertedPrivateKey.privateKey, convertedPrivateKey.n)
 }

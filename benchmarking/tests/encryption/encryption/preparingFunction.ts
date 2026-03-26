@@ -3,7 +3,7 @@ import { publicKeyType, privateKeyType } from "../../../../dist/index.js"
 import { readFile } from "fs/promises"
 
 import { generateKeyPair } from '../../../../dist/index.js';
-import { convertObjectBigIntStringsToBigIntObject } from "../../convertValueToBigintObject";
+import { convertObjectBigIntStringsToBigIntObject } from "../../../../src/convertValueToBigintObject";
 
 type result = {
     "publicKey": publicKeyType

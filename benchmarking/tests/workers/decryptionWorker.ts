@@ -1,6 +1,6 @@
 import { decryptMessage } from "../../../dist/index.js"
-import stringToObject from "../convertStringToObject"
-import objectToString from "../convertObjectToString"
+import stringToObject from "../../../src/convertStringToObject"
+import objectToString from "../../../src/convertObjectToString"
 
 export default async function decryptionWorker(args: any[]) {
   const encryptedText = args[0]

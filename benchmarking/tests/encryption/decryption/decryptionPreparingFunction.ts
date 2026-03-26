@@ -1,6 +1,6 @@
 import { readFile } from "fs/promises"
 import { encryptionResults } from "../../customTypes"
-import { convertObjectBigIntStringsToBigIntObject } from "../../convertValueToBigintObject"
+import { convertObjectBigIntStringsToBigIntObject } from "../../../../src/convertValueToBigintObject"
 
 export default async function preparingFunction(size: number, iteration: number, decryptionResultPath: string) {
   const file = await readFile(decryptionResultPath, "utf8")
