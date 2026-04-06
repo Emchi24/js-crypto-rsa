@@ -6,7 +6,7 @@ import extendedEuclideanAlgorithm from "./math/extendedEuclideanAlgorithm";
 export function getPrivateKey(p: bigint, q: bigint, bitLength: number) {
     const x = (p-1n) * (q-1n)
     while (true) {
-        const d = getRendomNumber((bitLength), false)
+        const d = getRendomNumber(bitLength, false)
         const relativePrimeCheck = gcd(d, x) === 1n
         if (relativePrimeCheck) {
             return d

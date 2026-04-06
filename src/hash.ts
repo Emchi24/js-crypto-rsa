@@ -4,7 +4,7 @@ export default async function createSha256Hash(input: string): Promise<string> {
   const encodedData = new TextEncoder().encode(input)
 
   // hash encoded data
-  const buffer = await crypto.subtle.digest('SHA-256', encodedData)
+  const buffer = await globalThis.crypto.subtle.digest('SHA-256', encodedData)
 
   // convert buffer to array
   const byteArray = Array.from(new Uint8Array(buffer))
