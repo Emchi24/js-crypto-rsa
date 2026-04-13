@@ -3,7 +3,7 @@ import { randomBytes } from 'crypto'
 export default function getRendomNumber(NumLenBits: number, oddNumber: boolean): bigint {
 
     // generate as many cryptografic random numbers as you want the bigger random number to be long
-    const rNumbArray = new Uint8Array(Math.ceil(NumLenBits / 8))
+    const rNumbArray = new Uint8Array(NumLenBits)
     globalThis.crypto.getRandomValues(rNumbArray)
     
     let bitString: string = ""
